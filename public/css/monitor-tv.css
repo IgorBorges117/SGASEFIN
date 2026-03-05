@@ -1,0 +1,187 @@
+body.monitor-tv header,
+body.monitor-tv footer {
+    display: none;
+}
+
+body.monitor-tv section,
+body.monitor-tv .container-fluid {
+    padding: 0;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.monitor-panel {
+    min-height: 100vh;
+    background: #0b57a4;
+    color: #ffffff;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.monitor-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 12px;
+}
+
+.monitor-panel__title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.monitor-panel__brand {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.monitor-panel__content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.38fr 0.62fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.monitor-panel__current {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.current__block {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 12px;
+}
+
+.current__label {
+    font-size: 18px;
+    opacity: 0.8;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.current__value--service {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.current__name {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffd84f;
+    line-height: 1.2;
+}
+
+.current__senha {
+    font-size: 92px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1;
+}
+
+.current__guiche {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.current__clock {
+    margin-top: auto;
+}
+
+#novosga-clock .time {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#novosga-clock .date {
+    display: block;
+    font-size: 16px;
+    opacity: 0.7;
+    margin-top: 4px;
+}
+
+.monitor-panel__video-frame {
+    position: relative;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.monitor-panel__video-frame iframe,
+.monitor-panel__video-frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover;
+    background: #000;
+}
+
+.monitor-panel__history {
+    border-top: 2px solid rgba(255, 255, 255, 0.35);
+    padding-top: 14px;
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.history__title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.history__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.history__item {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+
+.history__local {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.history__senha {
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffd84f;
+}
+
+.monitor-panel__empty {
+    font-size: 18px;
+    opacity: 0.7;
+}
+
+@media (max-width: 1200px) {
+    .monitor-panel__content {
+        grid-template-columns: 1fr;
+    }
+
+    .monitor-panel__history {
+        grid-template-columns: 1fr;
+    }
+}

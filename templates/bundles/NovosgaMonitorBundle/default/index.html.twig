@@ -1,0 +1,162 @@
+{% extends "@NovosgaMonitor/base.html.twig" %}
+
+{% trans_default_domain 'NovosgaMonitorBundle' %}
+
+{% block body_attrs %}{{ parent() }} class="monitor-tv"{% endblock %}
+
+{% block body %}
+    {% set tvSrc = app.request.query.get('src') %}
+    {% set tvId = app.request.query.get('tv') %}
+    {% set media = app.request.query.get('media') %}
+    {% set muteParam = app.request.query.get('mute')|default('0') %}
+    {% set controlsParam = app.request.query.get('controls')|default('1') %}
+    {% set loopParam = app.request.query.get('loop')|default('1') %}
+    {% set autoplayParam = app.request.query.get('autoplay')|default('1') %}
+    {% set mute = muteParam in ['0','1'] ? muteParam : '0' %}
+    {% set controls = controlsParam in ['0','1'] ? controlsParam : '1' %}
+    {% set loop = loopParam in ['0','1'] ? loopParam : '1' %}
+    {% set autoplay = autoplayParam in ['0','1'] ? autoplayParam : '1' %}
+    {% set tvMode = 'iframe' %}
+    {% if media is not empty
+        and media matches '/^[A-Za-z0-9_\\/-]+\\.(mp4|webm)$/'
+        and not ('..' in media) %}
+        {% set tvMode = 'video' %}
+        {% set tvUrl = asset(media) %}
+    {% elseif tvSrc is not empty
+        and tvSrc matches '/^https:\\/\\//'
+        and ('youtube' in tvSrc or 'youtu.be' in tvSrc or 'globoplay' in tvSrc) %}
+        {% set tvUrl = tvSrc %}
+    {% elseif tvId is not empty and tvId matches '/^[A-Za-z0-9_-]{11}$/' %}
+        {% set tvUrl = 'https://www.youtube.com/embed/' ~ tvId ~ '?autoplay=' ~ autoplay ~ '&mute=' ~ mute ~ '&controls=' ~ controls ~ '&rel=0&modestbranding=1&playsinline=1' %}
+    {% else %}
+        {% set tvUrl = 'https://www.youtube.com/embed/live_stream?channel=UCZiYbVptd3PVPf4f6eR6UaQ&autoplay=' ~ autoplay ~ '&mute=' ~ mute ~ '&controls=' ~ controls ~ '&rel=0&modestbranding=1&playsinline=1' %}
+    {% endif %}
+
+    <div id="monitor" class="monitor-panel" v-cloak>
+        <div class="monitor-panel__header">
+            <div class="monitor-panel__title">{{ unidade.nome }}</div>
+            <div class="monitor-panel__brand">{{ title }}</div>
+        </div>
+
+        <div class="monitor-panel__content">
+            <div class="monitor-panel__current">
+                <div class="current__block">
+                    <div class="current__label">Atendimento</div>
+                    <div class="current__value--service" v-if="current">
+                        {% verbatim %}
+                            {{ current.servico.nome }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="current__value--service" v-else>
+                        Aguardando chamada
+                    </div>
+                </div>
+
+                <div class="current__block">
+                    <div class="current__label">Nome</div>
+                    <div class="current__name" v-if="current && current.nomeCliente">
+                        {% verbatim %}
+                            {{ current.nomeCliente }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="current__name" v-else>
+                        ---
+                    </div>
+                </div>
+
+                <div class="current__block">
+                    <div class="current__label">Senha</div>
+                    <div class="current__senha" v-if="current">
+                        {% verbatim %}
+                            {{ current.senha }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="current__senha" v-else>
+                        ---
+                    </div>
+                </div>
+
+                <div class="current__block">
+                    <div class="current__label" v-if="current && current.local">
+                        {% verbatim %}
+                            {{ current.local }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="current__label" v-else>
+                        Guiche
+                    </div>
+                    <div class="current__guiche" v-if="current">
+                        {% verbatim %}
+                            {{ current.numeroLocal }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="current__guiche" v-else>
+                        -
+                    </div>
+                </div>
+
+                <div class="current__clock" id="novosga-clock" title="{{ 'server.datetime'|trans }}"></div>
+            </div>
+
+            <div class="monitor-panel__video">
+                <div class="monitor-panel__video-frame">
+                    {% if tvMode == 'video' %}
+                        <video
+                            src="{{ tvUrl }}"
+                            {% if autoplay == '1' %}autoplay{% endif %}
+                            playsinline
+                            {% if loop == '1' %}loop{% endif %}
+                            {% if controls == '1' %}controls{% endif %}
+                            {% if mute == '1' %}muted{% endif %}
+                        ></video>
+                    {% else %}
+                        <iframe
+                            src="{{ tvUrl }}"
+                            title="Transmissao ao vivo"
+                            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                            allowfullscreen
+                            referrerpolicy="strict-origin-when-cross-origin"
+                        ></iframe>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="monitor-panel__history">
+            <div class="history__title">Ultimas senhas chamadas</div>
+            <div class="history__list">
+                <div class="history__item" v-for="item in history">
+                    <div class="history__local">
+                        {% verbatim %}
+                            {{ (item.local || 'Guiche') + ': ' + (item.numeroLocal ?? '-') }}
+                        {% endverbatim %}
+                    </div>
+                    <div class="history__senha">
+                        {% verbatim %}
+                            {{ item.senha }}
+                        {% endverbatim %}
+                    </div>
+                </div>
+                <div class="monitor-panel__empty" v-if="history.length === 0">
+                    Nenhuma senha chamada.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/monitor-tv.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        const ids = [{% for su in servicos %}{{su.servico.id}},{% endfor %}];
+        const unidade = {{ unidade|json_encode()|raw }};
+
+        App.Clock.init("novosga-clock", {{ milis }});
+    </script>
+    <script type="text/javascript" src="{{ asset('js/monitor-tv.js') }}"></script>
+{% endblock %}
