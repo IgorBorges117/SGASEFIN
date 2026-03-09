@@ -79,3 +79,36 @@ input[type=color] {
     height: 40px;
     max-width: 80px;
 }
+
+/* Prefeitura branding (navbar) */
+:root {
+    --pmb-blue: #082358;
+}
+
+header .navbar {
+    background-color: var(--pmb-blue) !important;
+}
+
+header .navbar .navbar-brand,
+header .navbar .nav-link,
+header .navbar .navbar-text {
+    color: #fff !important;
+}
+
+header .navbar .nav-link:hover,
+header .navbar .nav-link:focus {
+    color: #e6eefc !important;
+}
+
+header .navbar .nav-link i,
+header .navbar .dropdown-toggle i {
+    color: #fff;
+}
+
+header .navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+header .navbar .navbar-toggler-icon {
+    filter: invert(1);
+}

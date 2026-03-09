@@ -98,6 +98,12 @@
                     {{ atendimento.servico.nome }}
                 </p>
             {% endif %}
+
+            {% if atendimento.local %}
+                <p class="local">
+                    Local: {{ atendimento.local.nome }}{% if atendimento.numeroLocal is not null %} {{ atendimento.numeroLocal }}{% endif %}
+                </p>
+            {% endif %}
             
             {% if atendimento.unidade.impressao.exibirMensagemServico %}
                 <p class="servico">
