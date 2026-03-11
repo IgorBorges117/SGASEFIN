@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Avoid looping when already in /public
+    RewriteCond %{REQUEST_URI} !^/novosga/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

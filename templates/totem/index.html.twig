@@ -1,0 +1,117 @@
+﻿{%- extends 'skeleton.html.twig' -%}
+
+{% block title %}Totem{% endblock %}
+
+{% block body_content %}
+    <div id="totem" class="totem" v-cloak>
+        <div class="totem__header">
+            <div class="totem__title">Autoatendimento</div>
+            <div class="totem__subtitle">{{ unidade.nome }}</div>
+        </div>
+
+        <div class="totem__content">
+            <div class="totem__panel" v-if="step !== 'ticket'">
+                <div class="totem__client">
+                    <div class="totem__client-title">Nome do cliente (opcional)</div>
+                    <div class="totem__client-fields">
+                        <label class="totem__client-field">
+                            <span>Nome</span>
+                            <input type="text" v-model.trim="cliente.nome" maxlength="60" autocomplete="off" :disabled="loading">
+                        </label>
+                    </div>
+                    <div class="totem__client-hint">Se preenchido, o nome sai no ticket.</div>
+                </div>
+
+                <div v-if="step === 'services'">
+                    <h2 class="totem__panel-title">Selecione o serviço</h2>
+                    <div class="totem__grid">
+                        <button class="totem__card" v-for="su in servicosAtivos" v-on:click="selectServico(su)">
+                            <div class="totem__sigla">
+                                {% verbatim %}{{ su.sigla }}{% endverbatim %}
+                            </div>
+                            <div class="totem__nome">
+                                {% verbatim %}{{ su.servico.nome }}{% endverbatim %}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div v-if="step === 'priorities'">
+                    <h2 class="totem__panel-title">Selecione a opção</h2>
+                    <div class="totem__grid totem__grid--priorities">
+                        <button class="totem__card totem__card--priority" v-for="p in prioridadesOrdenadas" v-on:click="emitirSenha(p)">
+                            <div class="totem__nome">
+                                {% verbatim %}{{ p.nome }}{% endverbatim %}
+                            </div>
+                        </button>
+                    </div>
+                    <button class="totem__btn totem__btn--back" v-on:click="voltar">Voltar</button>
+                </div>
+            </div>
+
+            <div class="totem__panel" v-if="step === 'ticket'">
+                <div class="totem__ticket">
+                    <div class="totem__ticket-label">Senha gerada</div>
+                    <div class="totem__ticket-number">
+                        {% verbatim %}{{ atendimento?.senha?.format || atendimento?.senha || '-' }}{% endverbatim %}
+                    </div>
+                    <div class="totem__ticket-service">
+                        {% verbatim %}{{ atendimento?.servico?.nome || '' }}{% endverbatim %}
+                    </div>
+                    <div class="totem__ticket-priority" v-if="atendimento?.prioridade">
+                        {% verbatim %}{{ atendimento.prioridade.nome }}{% endverbatim %}
+                    </div>
+                </div>
+                <div class="totem__actions">
+                    <button class="totem__btn" v-on:click="reprint" v-if="atendimento">
+                        Reimprimir
+                    </button>
+                    <button class="totem__btn totem__btn--primary" v-on:click="reset">
+                        Nova senha
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <iframe id="totem-print-frame" width="0" height="0" style="border:none;"></iframe>
+    </div>
+
+    <div id="error-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Erro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span id="ajax-loading" class="mini-loading" style="display:none"></span>
+
+    <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vue.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/moment-with-locales.min.js') }}"></script>
+    <script type="text/javascript">
+        App.baseUrl = '{{ app.request.baseUrl() }}';
+        App.version = '{{ version }}';
+        App.dateFormat = '{{ "m/d/Y"|trans }}';
+        var servicos = {{ servicos|json_encode()|raw }};
+        var prioridades = {{ prioridades|json_encode()|raw }};
+        var unidade = {{ unidade|json_encode()|raw }};
+    </script>
+    <script type="text/javascript" src="{{ asset('js/totem.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/totem.css') }}">
+{% endblock %}

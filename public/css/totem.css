@@ -1,0 +1,198 @@
+.totem {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f3f6fb;
+}
+
+.totem__header {
+    background: #0b2d63;
+    color: #fff;
+    padding: 20px 32px;
+    text-align: center;
+}
+
+.totem__title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.totem__subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.totem__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.totem__panel {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.totem__client {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 20px rgba(14, 30, 37, 0.08);
+}
+
+.totem__client-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0b2d63;
+    margin-bottom: 12px;
+}
+
+.totem__client-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.totem__client-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    color: #4a4a4a;
+}
+
+.totem__client-field input {
+    border: 1px solid #d4dce8;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 16px;
+}
+
+.totem__client-field input:focus {
+    outline: none;
+    border-color: #0b2d63;
+    box-shadow: 0 0 0 2px rgba(11, 45, 99, 0.15);
+}
+
+.totem__client-hint {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #687386;
+}
+
+.totem__panel-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+.totem__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.totem__card {
+    border: none;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    min-height: 140px;
+    box-shadow: 0 6px 20px rgba(14, 30, 37, 0.08);
+    text-align: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.totem__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(14, 30, 37, 0.12);
+}
+
+.totem__sigla {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0b2d63;
+    margin-bottom: 10px;
+}
+
+.totem__nome {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1c1c1c;
+}
+
+.totem__card--priority {
+    background: #e8f0ff;
+}
+
+.totem__btn {
+    margin-top: 24px;
+    padding: 14px 24px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 1px solid #0b2d63;
+    background: #fff;
+    color: #0b2d63;
+}
+
+.totem__btn--primary {
+    background: #0b2d63;
+    color: #fff;
+    border-color: #0b2d63;
+}
+
+.totem__btn--back {
+    margin-top: 16px;
+}
+
+.totem__ticket {
+    text-align: center;
+    background: #fff;
+    border-radius: 18px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(14, 30, 37, 0.12);
+}
+
+.totem__ticket-label {
+    font-size: 18px;
+    color: #4a4a4a;
+}
+
+.totem__ticket-number {
+    font-size: 64px;
+    font-weight: 700;
+    color: #0b2d63;
+    margin: 8px 0;
+}
+
+.totem__ticket-service {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.totem__ticket-priority {
+    font-size: 18px;
+    color: #c0392b;
+    margin-top: 6px;
+}
+
+.totem__actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 720px) {
+    .totem__title {
+        font-size: 24px;
+    }
+    .totem__ticket-number {
+        font-size: 48px;
+    }
+}

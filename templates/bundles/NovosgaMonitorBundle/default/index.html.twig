@@ -39,7 +39,7 @@
         </div>
 
         <div class="monitor-panel__content">
-            <div class="monitor-panel__current">
+            <div class="monitor-panel__current" :class="{ 'is-alert': alertActive }">
                 <div class="current__block">
                     <div class="current__label">Atendimento</div>
                     <div class="current__value--service" v-if="current">
@@ -142,6 +142,8 @@
                 </div>
             </div>
         </div>
+        <audio id="monitor-alert" src="{{ asset('bundles/novosgaattendance/sounds/alert.wav') }}" preload="auto"></audio>
+        <button type="button" class="monitor-audio-btn" id="monitor-audio-btn">Ativar som</button>
     </div>
 {% endblock %}
 
@@ -153,10 +155,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        const ids = [{% for su in servicos %}{{su.servico.id}},{% endfor %}];
-        const unidade = {{ unidade|json_encode()|raw }};
-
-        App.Clock.init("novosga-clock", {{ milis }});
+        window.MONITOR_BASE_URL = '{{ app.request.baseUrl() }}';
+        window.MONITOR_IDS = [{% for su in servicos %}{{su.servico.id}},{% endfor %}];
+        window.MONITOR_UNIDADE = {{ unidade|json_encode()|raw }};
+        window.MONITOR_MILIS = {{ milis }};
     </script>
     <script type="text/javascript" src="{{ asset('js/monitor-tv.js') }}"></script>
 {% endblock %}

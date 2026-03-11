@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Ensure correct base path when running under /novosga
+    RewriteBase /sefinatendimento/
+
+    # Pass through existing files/directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route all other requests to front controller
+    RewriteRule ^ index.php [L]
+</IfModule>

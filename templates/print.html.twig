@@ -5,8 +5,13 @@
     <title>{{ atendimento.senha }}</title>
     <style>
         @page {
-            size: 80mm 110mm;
-            margin: 10mm;
+            size: 80mm 100mm;
+            margin: 3mm;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
         }
 
         #senha {
@@ -16,14 +21,14 @@
 
         #senha * {
             font-family: monospace;
-            font-size: 12pt;
+            font-size: 10pt;
             text-align: center;
             line-height: 1;
         }
 
         #senha header {
-            font-size: 10pt;
-            padding: 5pt 0;
+            font-size: 9pt;
+            padding: 3pt 0;
         }
 
         #senha header p {
@@ -31,18 +36,18 @@
         }
 
         #senha header .unidade {
-            font-size: 14pt;
+            font-size: 12pt;
             font-weight: bold;
-            padding-bottom: 4pt;
+            padding-bottom: 2pt;
         }
 
         #senha section {
-            font-size: 10pt;
-            padding: 10pt 0;
+            font-size: 9pt;
+            padding: 4pt 0;
         }
 
         #senha section p {
-            margin: 5px 0;
+            margin: 2px 0;
         }
 
         #senha section .prioridade {
@@ -50,18 +55,23 @@
         }
 
         #senha section .senha {
-            font-size: 35pt;
-            line-height: 50pt;
+            font-size: 30pt;
+            line-height: 36pt;
             font-weight: bold;
         }
 
         #senha section .data-hora {
-            padding: 5pt 0;
+            padding: 3pt 0;
         }
 
         #senha footer {
             font-size: 8pt;
-            padding: 5pt 0;
+            padding: 3pt 0;
+        }
+
+        #senha {
+            break-inside: avoid;
+            page-break-inside: avoid;
         }
 
         #senha footer p {
@@ -96,6 +106,18 @@
             {% if atendimento.unidade.impressao.exibirNomeServico %}
                 <p class="servico">
                     {{ atendimento.servico.nome }}
+                </p>
+            {% endif %}
+
+            {% if atendimento.cliente and (atendimento.cliente.nome or atendimento.cliente.documento) %}
+                <p class="cliente">
+                    {% if atendimento.cliente.nome %}
+                        Cliente: {{ atendimento.cliente.nome }}
+                    {% endif %}
+                    {% set doc = atendimento.cliente.documento|default('') %}
+                    {% if doc and doc|slice(0, 6) != 'TOTEM-' %}
+                        <br>Doc: {{ doc }}
+                    {% endif %}
                 </p>
             {% endif %}
 
