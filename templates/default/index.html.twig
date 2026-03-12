@@ -16,6 +16,18 @@
         </div>
         <div class="quick-menu py-5">
             <div class="row">
+                {% if is_granted('ROLE_USER') %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <div class="card mb-4">
+                            <div class="card-body text-center">
+                                <a href="{{ path('totem_index') }}">
+                                    <img src="{{ asset('images/totem.png') }}" alt="Totem" class="quick-menu-icon">
+                                    Totem
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 {% for module in modules %}
                     {% if is_granted('view', module) %}
                         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
@@ -131,6 +143,14 @@
             font-size: 40pt;
             margin: 0 auto;
             display: block;
+        }
+
+        .quick-menu .quick-menu-icon {
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 10px;
+            display: block;
+            object-fit: contain;
         }
     </style>
 {% endblock %}
