@@ -44,11 +44,6 @@ body.monitor-tv .mini-loading {
     text-transform: uppercase;
 }
 
-.monitor-panel__brand {
-    font-size: clamp(10px, 1.2vw, 12px);
-    opacity: 0.7;
-}
-
 .monitor-panel__content {
     flex: 1;
     display: grid;
@@ -145,20 +140,13 @@ body.monitor-tv .mini-loading {
     margin-top: 4px;
 }
 
-.monitor-panel__video {
-    position: relative;
-}
-
 .monitor-panel__clock {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 5;
     padding: 8px 12px;
     border-radius: 10px;
     background: rgba(9, 16, 32, 0.75);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     text-align: right;
+    min-width: clamp(130px, 16vw, 170px);
 }
 
 .monitor-panel__video-frame {

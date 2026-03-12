@@ -35,7 +35,7 @@
     <div id="monitor" class="monitor-panel" v-cloak>
         <div class="monitor-panel__header">
             <div class="monitor-panel__title">{{ unidade.nome }}</div>
-            <div class="monitor-panel__brand">{{ title }}</div>
+            <div class="monitor-panel__clock" id="novosga-clock" title="{{ 'server.datetime'|trans }}"></div>
         </div>
 
         <div class="monitor-panel__content">
@@ -98,7 +98,6 @@
             </div>
 
             <div class="monitor-panel__video">
-                <div class="monitor-panel__clock" id="novosga-clock" title="{{ 'server.datetime'|trans }}"></div>
                 <div class="monitor-panel__video-frame">
                     {% if tvMode == 'video' %}
                         <video
