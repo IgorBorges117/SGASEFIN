@@ -21,6 +21,12 @@
                         <ul class="navbar-nav ml-auto mr-sm-2">
                             {% if is_granted('ROLE_USER') %}
                                 <li class="nav-item">
+                                    <a href="{{ path('totem_index') }}" title="Totem" class="nav-link nav-link--totem">
+                                        <img src="{{ asset('images/totem.png') }}" alt="Totem" class="totem-nav-icon">
+                                        <span class="totem-nav-text">Totem</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ path('about') }}" title="{{ 'menu.about'|trans }}" class="nav-link">
                                         <i class="fa fa-question-circle fa-fw"></i>
                                     </a>
