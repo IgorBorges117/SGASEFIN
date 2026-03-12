@@ -103,19 +103,19 @@ body.monitor-tv .mini-loading {
 }
 
 .current__label {
-    font-size: clamp(12px, 1.4vw, 18px);
+    font-size: clamp(14px, 1.8vw, 22px);
     opacity: 0.8;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
 .current__value--service {
-    font-size: clamp(20px, 2.6vw, 32px);
+    font-size: clamp(24px, 3.2vw, 40px);
     font-weight: 700;
 }
 
 .current__name {
-    font-size: clamp(22px, 3vw, 34px);
+    font-size: clamp(26px, 3.6vw, 44px);
     font-weight: 800;
     color: #ffd84f;
     line-height: 1.2;
@@ -191,7 +191,7 @@ body.monitor-tv .mini-loading {
 }
 
 .history__title {
-    font-size: clamp(14px, 1.6vw, 18px);
+    font-size: clamp(16px, 2vw, 22px);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
