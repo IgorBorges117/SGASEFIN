@@ -152,8 +152,9 @@ body.monitor-tv .mini-loading {
 }
 
 #novosga-clock .date {
-    font-size: clamp(12px, 1.4vw, 16px);
-    opacity: 0.7;
+    font-size: clamp(14px, 1.8vw, 20px);
+    font-weight: 600;
+    opacity: 0.9;
 }
 
 .monitor-panel__clock {
