@@ -112,7 +112,7 @@
             {% if atendimento.cliente and (atendimento.cliente.nome or atendimento.cliente.documento) %}
                 <p class="cliente">
                     {% if atendimento.cliente.nome %}
-                        Cliente: {{ atendimento.cliente.nome }}
+                        Nome: {{ atendimento.cliente.nome }}
                     {% endif %}
                     {% set doc = atendimento.cliente.documento|default('') %}
                     {% if doc and doc|slice(0, 6) != 'TOTEM-' %}
