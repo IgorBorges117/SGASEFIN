@@ -34,7 +34,9 @@
 
     <div id="monitor" class="monitor-panel" v-cloak>
         <div class="monitor-panel__header">
-            <div class="monitor-panel__title">{{ unidade.nome }}</div>
+            <div class="monitor-panel__title">
+                <img src="{{ asset('images/sefin-logo.png') }}" alt="{{ unidade.nome }}" class="monitor-panel__logo">
+            </div>
             <div class="monitor-panel__clock" id="novosga-clock" title="{{ 'server.datetime'|trans }}"></div>
         </div>
 
