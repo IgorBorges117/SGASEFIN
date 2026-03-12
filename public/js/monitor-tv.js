@@ -87,29 +87,6 @@
             alertTimer: null,
         },
         methods: {
-            initAudioUnlock() {
-                const btn = document.getElementById('monitor-audio-btn');
-                const audio = document.getElementById('monitor-alert');
-                if (!btn || !audio) {
-                    return;
-                }
-
-                const unlock = () => {
-                    try {
-                        audio.pause();
-                        audio.currentTime = 0;
-                        const playPromise = audio.play();
-                        if (playPromise && typeof playPromise.catch === 'function') {
-                            playPromise.catch(() => {});
-                        }
-                    } catch (e) {
-                        // ignore
-                    }
-                    btn.classList.add('is-hidden');
-                };
-
-                btn.addEventListener('click', unlock);
-            },
             playAlert() {
                 const audio = document.getElementById('monitor-alert');
                 if (!audio) {
@@ -177,7 +154,6 @@
             }
         },
         mounted() {
-            this.initAudioUnlock();
             if (this.unidade && this.unidade.id && typeof App !== 'undefined' && App.SSE) {
                 App.SSE.connect([`/unidades/${this.unidade.id}/painel`]);
                 App.SSE.onmessage = () => this.updatePanel(true);
