@@ -104,7 +104,8 @@ body.monitor-tv .mini-loading {
 
 .current__label {
     font-size: clamp(14px, 1.8vw, 22px);
-    opacity: 0.8;
+    font-weight: 700;
+    color: #e9f2ff;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
@@ -139,16 +140,20 @@ body.monitor-tv .mini-loading {
     line-height: 1;
 }
 
+#novosga-clock {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
 #novosga-clock .time {
     font-size: clamp(18px, 2.2vw, 28px);
     font-weight: 700;
 }
 
 #novosga-clock .date {
-    display: block;
     font-size: clamp(12px, 1.4vw, 16px);
     opacity: 0.7;
-    margin-top: 4px;
 }
 
 .monitor-panel__clock {
@@ -192,7 +197,8 @@ body.monitor-tv .mini-loading {
 
 .history__title {
     font-size: clamp(16px, 2vw, 22px);
-    font-weight: 700;
+    font-weight: 800;
+    color: #e9f2ff;
     letter-spacing: 0.04em;
     text-transform: uppercase;
 }
