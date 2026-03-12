@@ -29,6 +29,12 @@ body.monitor-tv .mini-loading {
     display: none !important;
 }
 
+body.monitor-tv #sf-toolbar,
+body.monitor-tv #sf-toolbar-clearer,
+body.monitor-tv .sf-toolbar {
+    display: none !important;
+}
+
 .monitor-panel__header {
     display: flex;
     align-items: center;
